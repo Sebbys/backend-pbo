@@ -1,0 +1,14 @@
+buildscript {
+    repositories {
+        // ...existing repositories...
+        mavenCentral()
+    }
+    dependencies {
+        // ...existing dependencies...
+        classpath 'org.postgresql:postgresql:42.2.23'
+    }
+}
+// ...existing code...
+// implementation 'mysql:mysql-connector-java:8.0.26'
+implementation 'org.postgresql:postgresql:42.2.23'
+// ...existing code...
