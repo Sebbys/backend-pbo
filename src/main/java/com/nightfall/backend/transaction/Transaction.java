@@ -6,7 +6,7 @@ import com.nightfall.backend.discount.Discount;
 import java.sql.Timestamp;
 import java.util.Set;
 
-@Entity(name = "TransactionEntity")
+@Entity
 @Table(name = "transaction")
 public class Transaction {
     @Id
@@ -23,9 +23,7 @@ public class Transaction {
     @JoinColumn(name = "discount_id")
     private Discount discount;
 
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<TransactionProduct> transactionProducts;
-
+    // Getters and setters
     public String getTransactionId() {
         return transactionId;
     }
@@ -66,11 +64,4 @@ public class Transaction {
         this.discount = discount;
     }
 
-    public Set<TransactionProduct> getTransactionProducts() {
-        return transactionProducts;
-    }
-
-    public void setTransactionProducts(Set<TransactionProduct> transactionProducts) {
-        this.transactionProducts = transactionProducts;
-    }
 }

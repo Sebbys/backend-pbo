@@ -29,8 +29,12 @@ public class ProductController {
         return ResponseEntity.ok("Test endpoint is working");
     }
     
-    // Add Maping to update product stock 
-
+    // // Add Mapping to update product stock
+    // @PutMapping("/{id}/stock")
+    // public ResponseEntity<Object> updateProductStock(@PathVariable String id, @RequestBody Map<String, Integer> stockUpdate) {
+    //     int newStock = stockUpdate.get("stock");
+    //     return productService.updateProductStock(id, newStock);
+    // }
 
     // Add GetMapping to get all products
     @GetMapping
@@ -39,9 +43,9 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    // Add endpoint to handle transaction and decrement product stock
-    @PostMapping("/transaction")
-    public ResponseEntity<Object> handleTransaction(@RequestBody Map<Long, Integer> productQuantities) {
-        return productService.handleTransaction(productQuantities);
-    }
+    // // Add endpoint to handle transaction and decrement product stock
+    // @PostMapping("/checkout")
+    // public ResponseEntity<Object> handleTransaction(@RequestBody Map<String, Integer> productQuantities) {
+    //     return productService.handleTransaction(productQuantities);
+    // }
 }

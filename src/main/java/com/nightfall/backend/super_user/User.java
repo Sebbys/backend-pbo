@@ -1,12 +1,12 @@
-package com.nightfall.backend.user;
+package com.nightfall.backend.super_user;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.nightfall.backend.person.Person;
+import com.nightfall.backend.role.Role;
 
 @Entity
-@Table(name = "app_user")
-@JsonIgnoreProperties({"person"})
+@Table(name = "super_user")
+@JsonIgnoreProperties({"role"})
 public class User {
     @Id
     private String userId;
@@ -14,8 +14,8 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     // Getters and setters
     public String getUserId() {
@@ -42,11 +42,11 @@ public class User {
         this.password = password;
     }
 
-    public Person getPerson() {
-        return person;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

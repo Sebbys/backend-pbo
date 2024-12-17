@@ -1,7 +1,7 @@
 package com.nightfall.backend.customer;
 
 import jakarta.persistence.*;
-import com.nightfall.backend.person.Person;
+import com.nightfall.backend.role.Role;
 import com.nightfall.backend.transaction.Transaction;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -13,9 +13,9 @@ public class Customer {
     private String customerId;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "role_id")
     @JsonBackReference
-    private Person person;
+    private Role role;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Transaction> transactions;
@@ -29,12 +29,12 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public Person getPerson() {
-        return person;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Set<Transaction> getTransactions() {
