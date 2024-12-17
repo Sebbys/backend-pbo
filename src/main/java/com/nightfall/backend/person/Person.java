@@ -11,6 +11,8 @@ import java.util.Set;
 @Entity
 @Table(name = "person")
 @JsonIgnoreProperties({"users"})
+
+// Change Person -> Role
 public class Person {
     @Id
     private String id;

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/product")
@@ -27,11 +28,20 @@ public class ProductController {
     public ResponseEntity<String> testEndpoint() {
         return ResponseEntity.ok("Test endpoint is working");
     }
+    
+    // Add Maping to update product stock 
+
 
     // Add GetMapping to get all products
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
+    }
+
+    // Add endpoint to handle transaction and decrement product stock
+    @PostMapping("/transaction")
+    public ResponseEntity<Object> handleTransaction(@RequestBody Map<Long, Integer> productQuantities) {
+        return productService.handleTransaction(productQuantities);
     }
 }
