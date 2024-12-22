@@ -5,35 +5,39 @@ import com.nightfall.backend.discount.Discount;
 import com.nightfall.backend.transaction.Transaction;
 import java.util.Set;
 import java.util.List;
+import java.math.BigDecimal;
 
 import java.util.UUID;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @Column(name = "product_id")
+    private UUID productId;
 
-    @ManyToOne
-    @JoinColumn(name = "discount_id")
-    private Discount discount;
-
+    @Column(nullable = false)
     private String name;
-    private double price;
-    private int stock;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private BigDecimal price;
+
+    @Column(nullable = false)
+    private int stockQuantity;
 
     // Getters and setters
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public UUID getProductId() {
+        return productId;
     }
 
     public String getName() {
@@ -44,28 +48,19 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
     public int getStock() {
-        return stock;
+        return stockQuantity;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStock(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
-
 }

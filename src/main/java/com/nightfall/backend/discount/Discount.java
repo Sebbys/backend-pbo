@@ -4,60 +4,46 @@ import com.nightfall.backend.product.Product;
 import com.nightfall.backend.transaction.Transaction;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Set;
+import java.util.*;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "discount")
 public class Discount {
     @Id
-    private String discountId;
-    private String discountType;
-    private Double value;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID discountId;
 
-    @OneToMany(mappedBy = "discount", cascade = CascadeType.PERSIST)
-    private Set<Product> products;
+    @Column(unique = true, nullable = false)
+    private String code;
 
-    @OneToMany(mappedBy = "discount", cascade = CascadeType.PERSIST)
-    private Set<Transaction> transactions;
+    @Column(nullable = false, precision = 5, scale = 2)
+    private BigDecimal percentage;
 
-    // Getters and setters
-    public String getDiscountId() {
-        return discountId;
+    private LocalDate validFrom;
+    private LocalDate validTo;
+
+    @Column(name = "is_active")
+    private boolean active = true;
+
+    @Column(name = "max_usage_limit")
+    private Integer maxUsageLimit;
+
+    @Column(name = "current_usage_count")
+    private Integer currentUsageCount = 0;
+
+    public boolean isValid() {
+        LocalDate now = LocalDate.now();
+        return active && 
+               (validFrom == null || !now.isBefore(validFrom)) &&
+               (validTo == null || !now.isAfter(validTo)) &&
+               (maxUsageLimit == null || 
+                currentUsageCount < maxUsageLimit);
     }
 
-    public void setDiscountId(String discountId) {
-        this.discountId = discountId;
-    }
 
-    public String getDiscountType() {
-        return discountType;
-    }
-
-    public void setDiscountType(String discountType) {
-        this.discountType = discountType;
-    }
-
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
-
-    public Set<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(Set<Transaction> transactions) {
-        this.transactions = transactions;
-    }
 }

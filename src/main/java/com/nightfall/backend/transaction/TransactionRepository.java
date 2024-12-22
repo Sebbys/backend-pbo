@@ -1,18 +1,14 @@
 package com.nightfall.backend.transaction;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import java.sql.Timestamp;
+import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.UUID;
 
-@Repository
-public interface TransactionRepository extends JpaRepository<Transaction, String> {
-    
-    List<Transaction> findByCustomer_CustomerId(String customerId);
-    
-    List<Transaction> findByDateBetween(Timestamp startDate, Timestamp endDate);
-    
-    List<Transaction> findByTotalGreaterThan(Double amount);
-    
-    List<Transaction> findByDiscount_DiscountId(String discountId);
+public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
+
+    @EntityGraph(attributePaths = {"customer", "discount", "transactionItems"})
+    @Query("SELECT t FROM Transaction t")
+    List<Transaction> findAllWithCustomerDiscountAndItems();
 }

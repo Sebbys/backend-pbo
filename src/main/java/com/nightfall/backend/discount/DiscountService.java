@@ -1,7 +1,10 @@
 package com.nightfall.backend.discount;
+import com.nightfall.backend.discount.InvalidDiscountException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +19,13 @@ public class DiscountService {
         return discountRepository.findAll();
     }
 
-    public Optional<Discount> getDiscountById(String discountId) {
-        return discountRepository.findById(discountId);
-    }
-
-    public Discount saveDiscount(Discount discount) {
+    public Discount createDiscount(Discount discount) {
         return discountRepository.save(discount);
     }
 
-    public void deleteDiscount(String discountId) {
-        discountRepository.deleteById(discountId);
+    public Optional<Discount> findValidDiscount(String code) {
+        return discountRepository.findByCode(code)
+            .filter(Discount::isValid);
     }
+
 }

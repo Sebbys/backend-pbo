@@ -2,41 +2,25 @@ package com.nightfall.backend.transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class TransactionService {
     
+    private static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
+    private final TransactionRepository transactionRepository;
+
     @Autowired
-    private TransactionRepository transactionRepository;
-    
-    public List<Transaction> getAllTransactions() {
+    public TransactionService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
+
+    @Transactional
+    public List<Transaction> findAll() {
+        logger.debug("Fetching all transactions");
         return transactionRepository.findAll();
-    }
-    
-    public Optional<Transaction> getTransactionById(String id) {
-        return transactionRepository.findById(id);
-    }
-    
-    public Transaction createTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
-    }
-    
-    public Transaction updateTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
-    }
-    
-    public void deleteTransaction(String id) {
-        transactionRepository.deleteById(id);
-    }
-    
-    public List<Transaction> getTransactionsByCustomerId(String customerId) {
-        return transactionRepository.findByCustomer_CustomerId(customerId);
-    }
-    
-    public Double calculateTotalAfterDiscount(Double total, Double discountPercentage) {
-        if (discountPercentage == null) return total;
-        return total * (1 - discountPercentage/100);
     }
 }

@@ -5,63 +5,34 @@ import com.nightfall.backend.customer.Customer;
 import com.nightfall.backend.discount.Discount;
 import java.sql.Timestamp;
 import java.util.Set;
+import java.util.*;
+import java.math.*;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "transaction")
 public class Transaction {
     @Id
-    private String transactionId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "transaction_id", columnDefinition = "UUID")
+    private UUID transactionId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @Column(nullable = false)
     private Timestamp date;
-    private Double total;
 
-    @ManyToOne
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal total;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "discount_id")
     private Discount discount;
 
-    // Getters and setters
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
-
+    @OneToMany(mappedBy = "transaction", fetch = FetchType.LAZY)
+    private Set<TransactionItem> transactionItems = new HashSet<>();
 }

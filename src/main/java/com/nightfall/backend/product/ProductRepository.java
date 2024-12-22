@@ -1,8 +1,7 @@
 package com.nightfall.backend.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-// Add the following import statement
-import com.nightfall.backend.product.*;;
+import java.util.UUID;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<Product, UUID> {
 }

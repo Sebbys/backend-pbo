@@ -20,6 +20,8 @@ repositories {
 
 dependencies {
     implementation 'org.postgresql:postgresql:42.2.23'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
     // Add the implementation dependency inside the dependencies block
     // ...existing code...
 }

@@ -28,13 +28,6 @@ public class ProductController {
     public ResponseEntity<String> testEndpoint() {
         return ResponseEntity.ok("Test endpoint is working");
     }
-    
-    // // Add Mapping to update product stock
-    // @PutMapping("/{id}/stock")
-    // public ResponseEntity<Object> updateProductStock(@PathVariable String id, @RequestBody Map<String, Integer> stockUpdate) {
-    //     int newStock = stockUpdate.get("stock");
-    //     return productService.updateProductStock(id, newStock);
-    // }
 
     // Add GetMapping to get all products
     @GetMapping
