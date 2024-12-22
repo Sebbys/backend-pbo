@@ -23,4 +23,10 @@ public class TransactionService {
         logger.debug("Fetching all transactions");
         return transactionRepository.findAll();
     }
+
+    @Transactional
+    public List<Transaction> findAllWithDetails() {
+        logger.debug("Fetching all transactions with details");
+        return transactionRepository.findAllWithCustomerDiscountAndItems();
+    }
 }

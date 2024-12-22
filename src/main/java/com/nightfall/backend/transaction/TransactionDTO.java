@@ -19,7 +19,16 @@ public class TransactionDTO {
     private Timestamp date;
     private BigDecimal total;
     private Discount discount;
-    private List<UUID> transactionItemIds;
+    private List<TransactionItemDTO> items;
+
+    @Getter
+    @Setter
+    public static class TransactionItemDTO {
+        private UUID transactionItemId;
+        private String productName;
+        private BigDecimal productPrice;
+        private int quantity;
+    }
 
     public TransactionDTO(Transaction transaction) {
         this.transactionId = transaction.getTransactionId();
@@ -27,8 +36,15 @@ public class TransactionDTO {
         this.date = transaction.getDate();
         this.total = transaction.getTotal();
         this.discount = transaction.getDiscount();
-        this.transactionItemIds = transaction.getTransactionItems().stream()
-                .map(TransactionItem::getTransactionItemId)
+        this.items = transaction.getTransactionItems().stream()
+                .map(item -> {
+                    TransactionItemDTO dto = new TransactionItemDTO();
+                    dto.setTransactionItemId(item.getTransactionItemId());
+                    dto.setProductName(item.getProduct().getName());
+                    dto.setProductPrice(item.getProduct().getPrice());
+                    dto.setQuantity(item.getQuantity());
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 }

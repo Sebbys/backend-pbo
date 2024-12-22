@@ -10,16 +10,16 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 public class TransactionController {
 
-    private final TransactionRepository transactionRepository;
+    private final TransactionService transactionService;
 
     @Autowired
-    public TransactionController(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 
     @GetMapping
     public List<TransactionDTO> getAllTransactions() {
-        return transactionRepository.findAllWithCustomerDiscountAndItems().stream()
+        return transactionService.findAllWithDetails().stream()
                 .map(TransactionDTO::new)
                 .collect(Collectors.toList());
     }

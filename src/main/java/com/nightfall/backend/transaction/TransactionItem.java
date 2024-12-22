@@ -1,14 +1,13 @@
 package com.nightfall.backend.transaction;
 
+import com.nightfall.backend.product.Product;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "transaction_item")
 public class TransactionItem {
     @Id
@@ -20,8 +19,9 @@ public class TransactionItem {
     @JoinColumn(name = "transaction_id", nullable = false)
     private Transaction transaction;
 
-    @Column(name = "product_id", nullable = false)
-    private UUID productId;  // Change from String to UUID
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     @Column(nullable = false)
     private int quantity;
