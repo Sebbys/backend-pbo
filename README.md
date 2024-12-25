@@ -132,3 +132,16 @@ CREATE TABLE transaction_product (
     quantity INT NOT NULL
 );
 ```
+
+
+TODO 
+- [ ] Remove Table TransactionProduct
+- [ ] Remove Table TransactionItems
+- [ ] Person -> Role Entity Change
+- - Column : 
+- - - roleId
+- - - roleName
+- [ ] Customer -> person_id change to roleID
+- - Column : 
+- - - Role Id
+- - - roleName

@@ -8,7 +8,22 @@ buildscript {
         classpath 'org.postgresql:postgresql:42.2.23'
     }
 }
-// ...existing code...
-// implementation 'mysql:mysql-connector-java:8.0.26'
-implementation 'org.postgresql:postgresql:42.2.23'
+
+plugins {
+    id 'java'
+    // ...existing code...
+}
+
+repositories {
+    // ...existing code...
+}
+
+dependencies {
+    implementation 'org.postgresql:postgresql:42.2.23'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    // Add the implementation dependency inside the dependencies block
+    // ...existing code...
+}
+
 // ...existing code...

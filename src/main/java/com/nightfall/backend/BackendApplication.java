@@ -14,13 +14,6 @@ public class BackendApplication implements ErrorController {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	@GetMapping("/hello")
-	public String hello() {
-		return "Hello World";
-	}
 
-	@GetMapping("/error")
-	public String handleError() {
-		return "Error occurred";
-	}
+	
 }
