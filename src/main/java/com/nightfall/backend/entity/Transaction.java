@@ -1,21 +1,25 @@
 package com.nightfall.backend.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import jakarta.persistence.*;
-import java.util.*; 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-@Data
 @Entity
+@Data
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID transactionId;
-    
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransactionItem> items; // This field represents the transaction items
-    
-    private double totalPrice;
-    private Date transactionDate;
-}
+    @GeneratedValue
+    private UUID id;
 
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<TransactionItem> items = new ArrayList<>();
+
+    private double totalAmount;
+
+    private LocalDateTime timestamp = LocalDateTime.now();
+}

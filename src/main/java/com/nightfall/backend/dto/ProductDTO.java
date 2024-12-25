@@ -3,14 +3,14 @@ import lombok.*;
 import java.util.*;
 import com.nightfall.backend.dto.*;
 
+import java.math.BigDecimal;
+
 @Data
 public class ProductDTO {
 
-    private UUID productId;
+    private Long id;
     private String name;
-    private String description;
-    private double price;
-    private int stock;
+    private BigDecimal price;
 
     // Getters and Setters
 }

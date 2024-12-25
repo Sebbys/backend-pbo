@@ -2,16 +2,15 @@ package com.nightfall.backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.nightfall.backend.entity.Product;
-import com.nightfall.backend.service.ProductService;
-import com.nightfall.backend.dto.ProductRequest;
 import java.util.List;
+
+import com.nightfall.backend.entity.Product;
+import com.nightfall.backend.service.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/products")
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
@@ -26,13 +25,14 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product addProduct(@RequestBody ProductRequest productRequest) {
-        return productService.addProduct(productRequest);
+    public Product createProduct(@RequestBody Product product) {
+        return productService.saveProduct(product);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable UUID id, @RequestBody ProductRequest productRequest) {
-        return productService.updateProduct(id, productRequest);
+    public Product updateProduct(@PathVariable UUID id, @RequestBody Product product) {
+        product.setId(id);
+        return productService.saveProduct(product);
     }
 
     @DeleteMapping("/{id}")

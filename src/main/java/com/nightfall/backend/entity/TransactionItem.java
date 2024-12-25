@@ -2,25 +2,25 @@ package com.nightfall.backend.entity;
 
 import lombok.Data;
 import jakarta.persistence.*;
-
 import java.util.UUID;
+import com.nightfall.backend.entity.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Data
 @Entity
+@Data
 public class TransactionItem {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID transactionItemId;
-
-    private int quantity;
-    private double price; // Can also be copied from the Product price if needed
+    @GeneratedValue
+    private UUID id; // Unique identifier for TransactionItem
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false) // Foreign key to the Product entity
+    @JoinColumn(name = "product_id")
     private Product product;
 
+    private int quantity;
+
     @ManyToOne
-    @JoinColumn(name = "transaction_id") // Foreign key to the Transaction entity
-    private Transaction transaction;
+    @JoinColumn(name = "transaction_id")
+    @JsonBackReference
+    private Transaction transaction; // Back-reference to Transaction
 }
