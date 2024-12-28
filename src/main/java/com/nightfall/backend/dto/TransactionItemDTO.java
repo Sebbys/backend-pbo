@@ -5,11 +5,6 @@ import com.nightfall.backend.dto.*;
 
 @Data
 public class TransactionItemDTO {
-
-    private UUID transactionItemId;
+    private UUID productId;
     private int quantity;
-    private double price;
-    private ProductDTO product;
-
-    // Getters and Setters
 }

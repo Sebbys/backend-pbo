@@ -4,18 +4,12 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.util.UUID;
 
-
-@Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private UUID id;
-    private String name;
-
-    @PrePersist
-    public void generateUUID() {
-        this.id = UUID.randomUUID();
-    }
+    private String roleName;
 }
